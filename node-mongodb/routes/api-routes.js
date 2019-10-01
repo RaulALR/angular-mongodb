@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const midAuth = require('../middlewares/authentication')
+const midAuth = require('../middlewares/authentication-middleware')
 
 const routerList = [
     {
@@ -27,15 +27,15 @@ router.get('/', function (req, res) {
 // Contact router
 var contactController = require('../controllers/contact-controllers');
 router.route('/contacts')
-    .get(contactController.index)
-    .post(contactController.new);
+    .get(midAuth.requiresLogin, contactController.index)
+    .post(midAuth.requiresLogin, contactController.new);
 
 //Contacts by id router 
 router.route('/contacts/:contact_id')
-    .get(contactController.view)
-    .patch(contactController.update)
-    .put(contactController.update)
-    .delete(contactController.delete);
+    .get(midAuth.requiresLogin, contactController.view)
+    .patch(midAuth.requiresLogin, contactController.update)
+    .put(midAuth.requiresLogin, contactController.update)
+    .delete(midAuth.requiresLogin, contactController.delete);
 
 //Login router
 var loginController = require('../controllers/login-controller');
@@ -45,6 +45,7 @@ router.route('/login')
 //Register user router
 var registerUserController = require('../controllers/register-user-controller');
 router.route('/registerUser')
-    .post(registerUserController.registerUser);
+    .post(registerUserController.registerUser)
+    .get(registerUserController.createToken);
 
 module.exports = router;

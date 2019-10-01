@@ -20,8 +20,6 @@ exports.index = function (req, res) {
 exports.new = function (req, res) {
     debugger
     var contact = new Contact();
-    // var id = req.body.username ? req.body.username : contact.username
-    // contact.username 
     contact.username = req.body.username ? req.body.username : contact.username;
     contact.username = new ObjectId(contact.username);
     contact.name = req.body.name ? req.body.name : contact.name;
@@ -29,11 +27,9 @@ exports.new = function (req, res) {
     contact.email = req.body.email;
     contact.phone = req.body.phone;
 
-    // save the contact and check for errors
     contact.save(function (err) {
-        // Check for validation error
         if (err)
-            res.json(err);
+            res.status(500).json(err);
         else
             res.json({
                 message: 'New contact created!',
@@ -61,7 +57,6 @@ exports.update = function (req, res) {
         contact.gender = req.body.gender;
         contact.email = req.body.email;
         contact.phone = req.body.phone;
-        // save the contact and check for errors
         contact.save(function (err) {
             if (err)
                 res.json(err);

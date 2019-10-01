@@ -1,28 +1,35 @@
 'use strict'
-var User = require('../models/user-model');
-var cryptService = require('../services/crypt-service')
+const User = require('../models/user-model');
+const cryptService = require('../services/crypt-service');
+const jwtService = require('../services/jwt-service');
 
 exports.login = function (req, res) {
     var loginStatus = false;
     User.findOne({ email: req.body.email })
-        .exec(function (err, res) {
+        .exec(function (err, response) {
             if (err) {
-                return callback(err)
-            } else if (!res) {
-                var err = new Error('User not found.');
-                err.status = 401;
-                return callback(err);
-            }
-            cryptService.comparePassword(req.body.password, res.password, function (err, result) {
-                if (err)
-                    return next(err);
-                else
-                    loginStatus = result;
-            })
-        });
+                res.status(500).send({
+                    id: 500,
+                    msg: err
+                })
+            } else if (!response) {
+                res.status(401).send({
+                    id: 401,
+                    msg: "Not exist"
+                })
+            } else {
+                cryptService.comparePassword(req.body.password, response.password, function (err, result) {
+                    if (err)
+                        return next(err);
+                    else
+                        loginStatus = result;
 
-    res.json({
-        message: `User login ${loginStatus ? 'successfully' : 'fails'}`,
-        data: loginStatus
-    });
+                    console.log(jwtService.createToken(response));
+                    res.json({
+                        message: `User login ${loginStatus ? 'successfully' : 'fails'}`,
+                        data: loginStatus ? jwtService.createToken(response) : false
+                    });
+                })
+            } { }
+        });
 }

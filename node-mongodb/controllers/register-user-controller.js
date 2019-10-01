@@ -1,5 +1,6 @@
 'use strict'
-var User = require('../models/user-model');
+const User = require('../models/user-model');
+const jwtService = require('../services/jwt-service');
 
 exports.registerUser = function (req, res) {
     var user = new User();
@@ -14,9 +15,22 @@ exports.registerUser = function (req, res) {
         if (err)
             res.json(err);
         else
-            res.json({
+            res.status(200).send({
                 message: 'User register succesffuly',
-                data: user
+                data: jwtService.createToken(user)
             });
     })
+};
+
+exports.createToken = function (req, res) {
+    var user = new User();
+
+    user.email = req.body.email;
+    user.username = req.body.username;
+    user.password = req.body.password;
+
+    res.status(200).send({
+        message: 'User register succesffuly',
+        data: jwtService.createToken(user)
+    });
 };

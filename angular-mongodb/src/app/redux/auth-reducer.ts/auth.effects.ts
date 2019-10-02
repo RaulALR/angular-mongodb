@@ -6,7 +6,6 @@ import { map } from 'rxjs/internal/operators/map';
 import { switchMap } from 'rxjs/internal/operators/switchMap';
 import { HttpService } from '../../core/services/http.service';
 import { environment } from 'src/environments/environment';
-import { HttpParams } from '@angular/common/http';
 import { Utils } from 'src/app/core/services/utils';
 
 @Injectable({
@@ -26,14 +25,13 @@ export class AuthEffects {
 
                 return this.httpService.callBackEnd(environment.endpoints.auth, 'POST', params).pipe(
                     map((res) => {
-                        debugger
-                        localStorage.setItem('token', JSON.stringify(res));
-                        const decodeUser = this.utils.decodeJWT(res);
+                        const decodeUser = this.utils.decodeJWT(res.data);
                         const user = {
-                            token: res,
+                            token: res.data,
                             username: decodeUser.username,
                             email: decodeUser.email
                         };
+                        localStorage.setItem('token', JSON.stringify(user));
                         return new GetAuthSuccess(user);
                     },
                         (error) => new GetAuthError(error))

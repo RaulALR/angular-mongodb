@@ -5,7 +5,7 @@ const jwtService = require('../services/jwt-service');
 
 exports.login = function (req, res) {
     var loginStatus = false;
-    User.findOne({ email: req.body.email })
+    User.findOne({ username: req.body.username })
         .exec(function (err, response) {
             if (err) {
                 res.status(500).send({
@@ -20,7 +20,7 @@ exports.login = function (req, res) {
             } else {
                 cryptService.comparePassword(req.body.password, response.password, function (err, result) {
                     if (err)
-                        return next(err);
+                        res.status(401).send({ id: 401, message: 'Wrong pass' });
                     else
                         loginStatus = result;
 

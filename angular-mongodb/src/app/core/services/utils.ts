@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { MatIconRegistry } from '@angular/material';
 import { DomSanitizer } from '@angular/platform-browser';
 import { FormControl } from '@angular/forms';
-import { JwtDecode } from 'jwt-decode';
+import * as jwt_decode from 'jwt-decode';
 
 @Injectable()
 export class Utils {
@@ -25,7 +25,7 @@ export class Utils {
     }
 
     public decodeJWT(token) {
-        return JwtDecode(token);
+        return jwt_decode(token);
     }
 
     public getMatErrorMessage(control: FormControl, literals: any) {

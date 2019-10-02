@@ -4,25 +4,27 @@ import { IAppState } from 'src/app/redux/app.state';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Utils } from 'src/app/core/services/utils';
 import { loginConstants } from './constants/constants';
-import { loginErrors } from './constants/errors';
 import { GetAuth } from 'src/app/redux/auth-reducer.ts/auth.actions';
+import { FormBuilderClass } from 'src/app/shared/form-builder.abstract';
+import { loginForm } from './constants/forms';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html'
 })
-export class LoginComponent implements OnInit {
-  formGroup: FormGroup;
-  literals: unknown;
-  errors: unknown;
+export class LoginComponent extends FormBuilderClass implements OnInit {
+  public literals: any;
+  public formLiterals: any;
+  public loginState = true;
 
   constructor(
     private store: Store<IAppState>,
-    private formBuilder: FormBuilder,
-    public utils: Utils
+    public utils: Utils,
+    formBuilder: FormBuilder
   ) {
+    super(formBuilder);
     this.literals = loginConstants;
-    this.errors = loginErrors;
+    this.buildForm(loginForm);
   }
 
   login(event) {
@@ -33,15 +35,8 @@ export class LoginComponent implements OnInit {
     this.store.dispatch(new GetAuth(params));
   }
 
-  private buildForm() {
-    this.formGroup = this.formBuilder.group({
-      username: new FormControl('', [Validators.required]),
-      password: new FormControl('', [Validators.required])
-    });
-  }
-
   ngOnInit() {
-    this.buildForm();
+    console.log(this.formGroup);
   }
 
 }

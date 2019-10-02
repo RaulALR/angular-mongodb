@@ -14,7 +14,7 @@ export class HttpService {
             case 'GET':
                 return this.http.get<any>(url, { params, headers });
             case 'POST':
-                return this.http.post<any>(url, { params, headers });
+                return this.http.post<any>(url, params, { headers });
             case 'PUT':
                 return this.http.put<any>(url, { params, headers });
             case 'PATCH':

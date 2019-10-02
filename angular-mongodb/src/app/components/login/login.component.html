@@ -1,21 +1,19 @@
-<mat-card>
-    <form [formGroup]="formGroup">
-        <mat-form-field appearance="outline">
-            <mat-label>{{literals.user}}</mat-label>
-            <input matInput placeholder="Placeholder" formControlName="username">
-            <mat-error
-                *ngIf="formGroup.get('username').invalid && (formGroup.get('username').dirty || formGroup.get('username').touched)">
-                {{utils.getMatErrorMessage(formGroup.get("username"), errors['username'])}}
-            </mat-error>
-        </mat-form-field>
-        <mat-form-field appearance="outline">
-            <mat-label>{{literals.password}}</mat-label>
-            <input matInput placeholder="Placeholder" type="password" formControlName="password">
-            <mat-error
-                *ngIf="formGroup.get('password').invalid && (formGroup.get('password').dirty || formGroup.get('password').touched)">
-                {{utils.getMatErrorMessage(formGroup.get("password"), errors['password'])}}
-            </mat-error>
-        </mat-form-field>
-        <button matButton (click)="login($event)" color="primary" [disabled]="formGroup.invalid">Send</button>
-    </form>
-</mat-card>
+<form [formGroup]="formGroup">
+    <mat-form-field appearance="outline">
+        <mat-label>{{literals.user}}</mat-label>
+        <input matInput placeholder="Placeholder" formControlName="username">
+        <mat-error
+            *ngIf="formGroup.get('username').invalid && (formGroup.get('username').dirty || formGroup.get('username').touched)">
+            {{utils.getMatErrorMessage(formGroup.get("username"), errorLiterals['username'])}}
+        </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+        <mat-label>{{literals.password}}</mat-label>
+        <input matInput placeholder="Placeholder" type="password" formControlName="password">
+        <mat-error
+            *ngIf="formGroup.get('password').invalid && (formGroup.get('password').dirty || formGroup.get('password').touched)">
+            {{utils.getMatErrorMessage(formGroup.get("password"), errorLiterals['password'])}}
+        </mat-error>
+    </mat-form-field>
+    <button matButton (click)="login($event)" color="primary" [disabled]="formGroup.invalid">Send</button>
+</form>

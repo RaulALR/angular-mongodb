@@ -7,16 +7,15 @@ import { AppComponent } from './app.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HomeComponent } from './components/home/home.component';
-import { LoginModule } from './components/login/login.module';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { appReducers } from './redux/app.reducers';
-
-
-import { JwtDecode } from 'jwt-decode';
 import { Utils } from './core/services/utils';
 import { CommonModule } from '@angular/common';
 import { HttpService } from './core/services/http.service';
+import { EffectsModule } from '@ngrx/effects';
+import { AuthEffects } from './redux/auth-reducer.ts/auth.effects';
+import { LoginRegisterModule } from './components/login-register/login-register.module';
 
 @NgModule({
   declarations: [
@@ -31,8 +30,9 @@ import { HttpService } from './core/services/http.service';
     ReactiveFormsModule,
     HttpClientModule,
     StoreModule.forRoot(appReducers),
+    EffectsModule.forRoot([AuthEffects]),
     StoreDevtoolsModule.instrument(),
-    LoginModule
+    LoginRegisterModule
   ],
   providers: [
     HttpService,

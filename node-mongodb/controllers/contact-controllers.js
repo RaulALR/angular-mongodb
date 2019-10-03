@@ -1,13 +1,11 @@
-Contact = require('../models/contact-model');
-ObjectId = require('mongodb').ObjectID;
+const Contact = require('../models/contact-model');
+const ObjectId = require('mongodb').ObjectID;
+const utils = require('../shared/utils');
 
 exports.index = function (req, res) {
     Contact.get(function (err, contacts) {
         if (err) {
-            res.json({
-                status: "error",
-                message: err,
-            });
+            utils.errorController(res, 500, err);
         }
         res.json({
             status: "success",
@@ -29,7 +27,7 @@ exports.new = function (req, res) {
 
     contact.save(function (err) {
         if (err)
-            res.status(500).json(err);
+            utils.errorController(res, 500, err);
         else
             res.json({
                 message: 'New contact created!',
@@ -41,7 +39,7 @@ exports.new = function (req, res) {
 exports.view = function (req, res) {
     Contact.findById(req.params.contact_id, function (err, contact) {
         if (err)
-            res.send(err);
+            utils.errorController(res, 500, err);
         res.json({
             message: 'Contact details loading..',
             data: contact
@@ -52,14 +50,14 @@ exports.view = function (req, res) {
 exports.update = function (req, res) {
     Contact.findById(req.params.contact_id, function (err, contact) {
         if (err)
-            res.send(err);
+            utils.errorController(res, 500, err);
         contact.name = req.body.name ? req.body.name : contact.name;
         contact.gender = req.body.gender;
         contact.email = req.body.email;
         contact.phone = req.body.phone;
         contact.save(function (err) {
             if (err)
-                res.json(err);
+                utils.errorController(res, 500, err);
             res.json({
                 message: 'Contact Info updated',
                 data: contact

@@ -19,4 +19,10 @@ export class FormBuilderClass {
         });
         this.formGroup = this.formBuilder.group(group);
     }
+
+    public resetForm(group) {
+        Object.keys(group.controls).forEach((item) => {
+            group.get(item).setValue('');
+        });
+    }
 }

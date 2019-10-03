@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import swal from 'sweetalert2';
 import { MatIconRegistry } from '@angular/material';
 import { DomSanitizer } from '@angular/platform-browser';
 import { FormControl } from '@angular/forms';
 import * as jwt_decode from 'jwt-decode';
+import { GetAuthError } from 'src/app/redux/auth-reducer.ts/auth.actions';
 
 @Injectable()
 export class Utils {
@@ -36,5 +36,15 @@ export class Utils {
             }
         });
         return msg;
+    }
+
+    public showErrorModal(err) {
+        console.log(err);
+        swal.fire(
+            'Error!',
+            `${err.error.message.charAt(0).toUpperCase()}${err.error.message.slice(1)}`,
+            'error'
+        );
+        return new GetAuthError(err);
     }
 }

@@ -1,36 +1,42 @@
-<form [formGroup]="formGroup">
-    <mat-form-field appearance="outline">
-        <mat-label>{{literals.email}}</mat-label>
-        <input matInput placeholder="Placeholder" formControlName="email">
-        <mat-error
-            *ngIf="formGroup.get('email').invalid && (formGroup.get('email').dirty || formGroup.get('email').touched)">
-            {{utils.getMatErrorMessage(formGroup.get("email"), errorLiterals['email'])}}
-        </mat-error>
-    </mat-form-field>
-    <mat-form-field appearance="outline">
-        <mat-label>{{literals.user}}</mat-label>
-        <input matInput placeholder="Placeholder" formControlName="username">
-        <mat-error
-            *ngIf="formGroup.get('username').invalid && (formGroup.get('username').dirty || formGroup.get('username').touched)">
-            {{utils.getMatErrorMessage(formGroup.get("username"), errorLiterals['username'])}}
-        </mat-error>
-    </mat-form-field>
-    <mat-form-field appearance="outline">
-        <mat-label>{{literals.password}}</mat-label>
-        <input matInput placeholder="Placeholder" type="password" formControlName="password">
-        <mat-error
-            *ngIf="formGroup.get('password').invalid && (formGroup.get('password').dirty || formGroup.get('password').touched)">
-            {{utils.getMatErrorMessage(formGroup.get("password"), errorLiterals['password'])}}
-        </mat-error>
-    </mat-form-field>
-    <mat-form-field appearance="outline">
-        <mat-label>{{literals.repeatPassword}}</mat-label>
-        <input matInput placeholder="Placeholder" type="password" formControlName="repeatPassword">
-        <mat-error
-            *ngIf="formGroup.get('repeatPassword').invalid && (formGroup.get('repeatPassword').dirty || formGroup.get('repeatPassword').touched)">
-            {{utils.getMatErrorMessage(formGroup.get("repeatPassword"), errorLiterals['password'])}}
-        </mat-error>
-    </mat-form-field>
-    <button matButton (click)="login($event)" color="primary" [disabled]="formGroup.invalid">{{literals.send}}</button>
-    <button matButton color="primary">{{literals.reset}}</button>
-</form>
+<div class="register-component">
+    <h2 class="register-title">Sign up</h2>
+    <form [formGroup]="formGroup" class="register-login">
+        <mat-form-field appearance="outline">
+            <mat-label>{{literals.email}}</mat-label>
+            <input matInput placeholder="Placeholder" formControlName="email">
+            <mat-error
+                *ngIf="formGroup.get('email').invalid && (formGroup.get('email').dirty || formGroup.get('email').touched)">
+                {{utils.getMatErrorMessage(formGroup.get("email"), errorLiterals['email'])}}
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>{{literals.user}}</mat-label>
+            <input matInput placeholder="Placeholder" formControlName="username">
+            <mat-error
+                *ngIf="formGroup.get('username').invalid && (formGroup.get('username').dirty || formGroup.get('username').touched)">
+                {{utils.getMatErrorMessage(formGroup.get("username"), errorLiterals['username'])}}
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>{{literals.password}}</mat-label>
+            <input matInput placeholder="Placeholder" type="password" formControlName="password">
+            <mat-error
+                *ngIf="formGroup.get('password').invalid && (formGroup.get('password').dirty || formGroup.get('password').touched)">
+                {{utils.getMatErrorMessage(formGroup.get("password"), errorLiterals['password'])}}
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>{{literals.repeatPassword}}</mat-label>
+            <input matInput placeholder="Placeholder" type="password" formControlName="repeatPassword">
+            <mat-error
+                *ngIf="formGroup.get('repeatPassword').invalid && (formGroup.get('repeatPassword').dirty || formGroup.get('repeatPassword').touched)">
+                {{utils.getMatErrorMessage(formGroup.get("repeatPassword"), errorLiterals['password'])}}
+            </mat-error>
+        </mat-form-field>
+        <div class="button-container">
+            <button matButton (click)="register($event)" class="button-style"
+                [disabled]="formGroup.invalid">{{literals.send}}</button>
+            <button matButton (click)="resetForm(formGroup)" class="button-style">{{literals.reset}}</button>
+        </div>
+    </form>
+</div>

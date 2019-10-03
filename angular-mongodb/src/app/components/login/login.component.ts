@@ -5,12 +5,13 @@ import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms'
 import { Utils } from 'src/app/core/services/utils';
 import { loginConstants } from './constants/constants';
 import { GetAuth } from 'src/app/redux/auth-reducer.ts/auth.actions';
-import { FormBuilderClass } from 'src/app/shared/form-builder.abstract';
 import { loginForm } from './constants/forms';
+import { FormBuilderClass } from 'src/app/shared/form-builder';
 
 @Component({
   selector: 'app-login',
-  templateUrl: './login.component.html'
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.scss']
 })
 export class LoginComponent extends FormBuilderClass implements OnInit {
   public literals: any;

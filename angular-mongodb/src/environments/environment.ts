@@ -6,7 +6,10 @@ export const environment = {
   production: false,
   apiUrl: 'http://localhost:8080/api',
   endpoints: {
-    auth: 'login'
+    login: {
+      auth: 'login',
+      register: 'registerUser'
+    }
   }
 };
 

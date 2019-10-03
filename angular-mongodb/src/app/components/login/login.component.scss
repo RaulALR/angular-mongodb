@@ -1,0 +1,13 @@
+.login-component {
+    display: flex;
+    flex-flow: column;
+
+    .login-title {
+        text-align: center;
+    }
+
+    .login-form {
+        display: flex;
+        flex-flow: column;
+    }
+}

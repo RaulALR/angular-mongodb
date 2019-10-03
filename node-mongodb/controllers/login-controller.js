@@ -2,25 +2,22 @@
 const User = require('../models/user-model');
 const cryptService = require('../services/crypt-service');
 const jwtService = require('../services/jwt-service');
+const utils = require('../shared/utils');
 
 exports.login = function (req, res) {
     var loginStatus = false;
+    debugger
     User.findOne({ username: req.body.username })
         .exec(function (err, response) {
+            debugger
             if (err) {
-                res.status(500).send({
-                    id: 500,
-                    msg: err
-                })
+                utils.errorController(res, 500, err);
             } else if (!response) {
-                res.status(401).send({
-                    id: 401,
-                    msg: "Not exist"
-                })
+                utils.errorController(res, 401, "Not exist");
             } else {
                 cryptService.comparePassword(req.body.password, response.password, function (err, result) {
                     if (err)
-                        res.status(401).send({ id: 401, message: 'Wrong pass' });
+                        utils.errorController(res, 401, 'Wrong auth');
                     else
                         loginStatus = result;
 

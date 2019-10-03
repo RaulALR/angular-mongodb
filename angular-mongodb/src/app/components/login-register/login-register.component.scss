@@ -1,0 +1,28 @@
+.login-register-module {
+    display: flex;
+    width: 60%;
+    margin: 0 auto;
+    margin-top: 15em;
+    background: rgb(136, 136, 136);
+    background: radial-gradient(circle, rgba(136, 136, 136, 1) 0%, rgba(19, 19, 19, 1) 100%);
+
+    .vertical-line {
+        width: 1px;
+    }
+
+    .login-container {
+        padding-left: 3em;
+        padding-top: 3em;
+        margin-right: 3em;
+        padding-bottom: 3em;
+        width: 100%;
+    }
+
+    .register-container {
+        margin-left: 3em;
+        padding-top: 3em;
+        padding-right: 3em;
+        padding-bottom: 3em;
+        width: 100%;
+    }
+}

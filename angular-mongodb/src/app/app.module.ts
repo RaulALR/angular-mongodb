@@ -16,6 +16,8 @@ import { HttpService } from './core/services/http.service';
 import { EffectsModule } from '@ngrx/effects';
 import { AuthEffects } from './redux/auth-reducer.ts/auth.effects';
 import { LoginRegisterModule } from './components/login-register/login-register.module';
+import { AuthService } from './core/services/auth.service';
+import { MatSidenavModule } from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -32,11 +34,13 @@ import { LoginRegisterModule } from './components/login-register/login-register.
     StoreModule.forRoot(appReducers),
     EffectsModule.forRoot([AuthEffects]),
     StoreDevtoolsModule.instrument(),
-    LoginRegisterModule
+    LoginRegisterModule,
+    MatSidenavModule
   ],
   providers: [
     HttpService,
-    Utils
+    Utils,
+    AuthService
   ],
   bootstrap: [AppComponent]
 })

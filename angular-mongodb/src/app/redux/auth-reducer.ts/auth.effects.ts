@@ -9,6 +9,8 @@ import { environment } from 'src/environments/environment';
 import { Utils } from 'src/app/core/services/utils';
 import { catchError } from 'rxjs/internal/operators/catchError';
 import { of } from 'rxjs/internal/observable/of';
+import { AuthService } from 'src/app/core/services/auth.service';
+import { Router } from '@angular/router';
 
 @Injectable({
     providedIn: 'root'
@@ -70,7 +72,9 @@ export class AuthEffects {
     constructor(
         private httpService: HttpService,
         private actions$: Actions,
-        private utils: Utils
+        private utils: Utils,
+        private authService: AuthService,
+        private router: Router
     ) { }
 
     private getAuthSuccess(res: any) {
@@ -80,7 +84,8 @@ export class AuthEffects {
             username: decodeUser.username,
             email: decodeUser.email
         };
-        localStorage.setItem('token', JSON.stringify(user));
+        this.authService.login(user);
+        this.router.navigate(['/home']);
         return new GetAuthSuccess(user);
     }
 }

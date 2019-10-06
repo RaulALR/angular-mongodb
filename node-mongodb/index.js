@@ -1,13 +1,14 @@
-let express = require('express');
-let bodyParser = require('body-parser');
-let mongoose = require('mongoose');
-var cors = require('cors');
-let app = express();
+const express = require('express');
+const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
+const config = require('./config');
+const cors = require('cors');
+const app = express();
 
-let apiRoutes = require("./routes/api-routes");
+const apiRoutes = require("./routes/api-routes");
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-mongoose.connect('mongodb://localhost:27017/test', { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(config.db, { useNewUrlParser: true, useUnifiedTopology: true });
 
 var db = mongoose.connection;
 

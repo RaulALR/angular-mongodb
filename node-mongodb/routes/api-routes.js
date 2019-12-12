@@ -17,6 +17,10 @@ const routerList = [
     {
         route: '/register',
         properties: ['post']
+    },
+    {
+        route: '/alerts',
+        properties: ['get']
     }
 ];
 
@@ -47,5 +51,10 @@ var registerUserController = require('../controllers/register-user-controller');
 router.route('/registerUser')
     .post(registerUserController.registerUser)
     .get(registerUserController.createToken);
+
+//SSE aler
+var sseAlertController = require('../controllers/sse-alert-controller');
+router.route('/alerts')
+    .get(sseAlertController.alerts);
 
 module.exports = router;

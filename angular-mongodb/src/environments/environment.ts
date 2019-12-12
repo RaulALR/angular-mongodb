@@ -9,7 +9,8 @@ export const environment = {
     login: {
       auth: 'login',
       register: 'registerUser'
-    }
+    },
+    alerts: 'alerts'
   }
 };
 
